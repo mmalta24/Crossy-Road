@@ -36,9 +36,12 @@
             // create a camera, which defines where we're looking at
             const aspect = window.innerWidth / window.innerHeight;
             camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 100);
-            camera.position.x = camera.position.y = 2;
-            camera.position.z = 5;
-            camera.lookAt(0, 2, 0); //points the camera to world point (0,2,0)
+            camera.position.x = 0;
+            camera.position.y = 12.900;
+            camera.position.z = 14.3;
+
+            camera.rotation.set(-32.33,0,0)
+            //camera.lookAt(0, 2, 0); //points the camera to world point (0,2,0)
 
 
             /*********************
@@ -48,7 +51,7 @@
             renderer = new THREE.WebGLRenderer({ antialias: false }); // aliasing (jagged edges when rendering)
             renderer.setSize(window.innerWidth, window.innerHeight);
             // configure renderer clear color
-            renderer.setClearColor("#frfrfr");
+            renderer.setClearColor("#444444");
 
             // add the output of the renderer to an HTML element (this case, the body)
             document.body.appendChild(renderer.domElement);
@@ -59,49 +62,65 @@
              * ****************************************************************************/
             const geometries = [];
 
-            const colorBrown = new THREE.Color(0xbb6600);
-            const colorGreen = new THREE.Color(0x00ff00);
+            const colorBrown = new THREE.Color(0x505365);
+            const colorGreen = new THREE.Color(0xADD94F);
 
-            const trunk = new THREE.CylinderGeometry(0.5, 0.5, 2);
+            const gardenRectangle = new THREE.BoxGeometry( 39, 0.080, 3.160);
+            gardenRectangle.translate(0,0,12.705)
 
-            console.log(trunk.attributes)
+            
 
-            const colorsTrunk = [];
-            for (let i = 0; i < trunk.attributes.position.count; i++)
-                colorsTrunk.push(colorBrown.r, colorBrown.g, colorBrown.b);
+            const colorsGarden = [];
+            for (let i = 0; i < gardenRectangle.attributes.position.count; i++)
+                colorsGarden.push(colorGreen.r, colorGreen.g, colorGreen.b);
 
-            trunk.setAttribute(
+            gardenRectangle.setAttribute(
                 'color',
-                new THREE.BufferAttribute(new Float32Array(colorsTrunk), 3));
+                new THREE.BufferAttribute(new Float32Array(colorsGarden), 3));
 
-            geometries.push(trunk);
+            geometries.push(gardenRectangle);
 
+            const gardenRectangle1 = new THREE.BoxGeometry( 63, 0.080, 3.280);
+            gardenRectangle1.translate(0,0,0.270)
 
-            const level1 = new THREE.ConeGeometry(3, 2, 8);
-            // Do this ONLY ONCE, since all level geometries have the same number of vertices
-            const colorsLevels = [];
-            for (let i = 0; i < level1.attributes.position.count; i++)
-                colorsLevels.push(colorGreen.r, colorGreen.g, colorGreen.b);
-
-            level1.translate(0, 2, 0)
-            level1.setAttribute(
+            gardenRectangle1.setAttribute(
                 'color',
-                new THREE.BufferAttribute(new Float32Array(colorsLevels), 3));
-            geometries.push(level1);
+                new THREE.BufferAttribute(new Float32Array(colorsGarden), 3));
+            
+            geometries.push(gardenRectangle1); 
 
-            const level2 = new THREE.ConeGeometry(2, 2, 8);
-            level2.translate(0, 3, 0)
-            level2.setAttribute(
-                'color',
-                new THREE.BufferAttribute(new Float32Array(colorsLevels), 3));
-            geometries.push(level2);
+            const gardenRectangle2 = new THREE.BoxGeometry( 87, 0.080, 3.160);
+            gardenRectangle2.translate(0,0,-12.247)
 
-            const level3 = new THREE.ConeGeometry(1.5, 2, 8);
-            level3.translate(0, 4, 0)
-            level3.setAttribute(
+            gardenRectangle2.setAttribute(
                 'color',
-                new THREE.BufferAttribute(new Float32Array(colorsLevels), 3));
-            geometries.push(level3);
+                new THREE.BufferAttribute(new Float32Array(colorsGarden), 3));
+            
+            geometries.push(gardenRectangle2);
+
+            /*SET ROAD*/
+
+            const roadRectangle=new THREE.BoxGeometry(59,0.080,9.280);
+            roadRectangle.translate(0,0,6.531)
+
+            const colorsRoad = [];
+            for (let i = 0; i < roadRectangle.attributes.position.count; i++)
+                colorsRoad.push(colorBrown.r, colorBrown.g, colorBrown.b);
+
+            roadRectangle.setAttribute(
+                'color',
+                new THREE.BufferAttribute(new Float32Array(colorsRoad), 3));
+            geometries.push(roadRectangle)
+
+            const roadRectangle1=new THREE.BoxGeometry(81,0.080,9.280);
+            roadRectangle1.translate(0,0,-6.007)
+
+            roadRectangle1.setAttribute(
+                'color',
+                new THREE.BufferAttribute(new Float32Array(colorsRoad), 3));
+            
+            geometries.push(roadRectangle1)
+
 
             const pineTreeGeometry = BufferGeometryUtils.mergeBufferGeometries(geometries);
             const pineTree = new THREE.Mesh(
@@ -109,6 +128,202 @@
                 new THREE.MeshBasicMaterial({ vertexColors: true })
             )
             scene.add(pineTree)
+            
+
+            /*Chicken*/
+
+            const chicken =  new THREE.Group();
+
+            //Set colors for chicken
+            const colorWhiteChicken = new THREE.Color(0xffffff);
+            const colorRedChicken = new THREE.Color(0xEF3146);
+            const colorBlackChickend=new THREE.Color(0xFC6F3F);
+            const colorOrangeChicken=new THREE.Color(0xADD94F);
+
+            //body
+
+            //foots
+
+            const foot = new THREE.Mesh(
+            new THREE.BoxGeometry(0.190,0.060,0.190),
+            new THREE.MeshBasicMaterial({ color:0xFC6F3F }),
+            )
+            
+            foot.position.y=1
+            chicken.add(foot)
+            console.log(foot);
+
+            const foot1 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.190,0.060,0.190),
+            new THREE.MeshBasicMaterial({ color:0xFC6F3F })
+            )
+            foot1.position.y=1
+            foot1.position.z=-0.336
+            chicken.add(foot1)
+
+            //fingers foot
+            const finger1 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.113,0.060,0.063),
+            new THREE.MeshBasicMaterial({ color:0xFC6F3F })
+            )
+            finger1.position.x=0.151
+            finger1.position.y=1
+            finger1.position.z=-0.400
+            chicken.add(finger1)
+
+            const finger2 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.113,0.060,0.063),
+            new THREE.MeshBasicMaterial({ color:0xFC6F3F })
+            )
+            finger2.position.x=0.151
+            finger2.position.y=1
+            finger2.position.z=-0.273
+            chicken.add(finger2)
+
+            const finger3 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.113,0.060,0.063),
+            new THREE.MeshBasicMaterial({ color:0xFC6F3F })
+            )
+            finger3.position.x=0.151
+            finger3.position.y=1
+            finger3.position.z=-0.062
+            chicken.add(finger3)
+
+            const finger4 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.113,0.060,0.063),
+            new THREE.MeshBasicMaterial({ color:0xFC6F3F })
+            )
+            finger4.position.x=0.151
+            finger4.position.y=1
+            finger4.position.z=0.064
+            chicken.add(finger4)
+
+            //legs
+            const legs1 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.075,0.250,0.075),
+            new THREE.MeshBasicMaterial({ color:0xFC6F3F })
+            )
+            legs1.position.x=0
+            legs1.position.y=1.154
+            legs1.position.z=0
+            chicken.add(legs1)
+
+            const legs2 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.075,0.250,0.075),
+            new THREE.MeshBasicMaterial({ color:0xFC6F3F })
+            )
+            legs2.position.x=0
+            legs2.position.y=1.154
+            legs2.position.z=-0.337
+            chicken.add(legs2)
+
+            //body
+
+            const body = new THREE.Mesh(
+            new THREE.BoxGeometry(0.810,0.420,0.530),
+            new THREE.MeshBasicMaterial({ color:0xFFFFFF })
+            )
+            body.position.x=-0.077
+            body.position.y=1.493
+            body.position.z=-0.153
+            chicken.add(body)
+
+            //head
+
+            const head = new THREE.Mesh(
+            new THREE.BoxGeometry(0.500,0.530,0.530),
+            new THREE.MeshBasicMaterial({ color:0xFFFFFF })
+            )
+            head.position.x=0.077
+            head.position.y=1.963
+            head.position.z=-0.153
+            chicken.add(head)
+
+            //mouth
+
+            const mouth = new THREE.Mesh(
+            new THREE.BoxGeometry(0.220,0.130,0.150),
+            new THREE.MeshBasicMaterial({ color:0xFC6F3F })
+            )
+            mouth.position.x=0.438
+            mouth.position.y=1.945
+            mouth.position.z=-0.153
+            chicken.add(mouth)
+
+            const mouth1 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.130,0.130,0.130),
+            new THREE.MeshBasicMaterial({ color:0xEF3146 })
+            )
+            mouth1.position.x=0.392
+            mouth1.position.y=1.817
+            mouth1.position.z=-0.153
+            chicken.add(mouth1)
+
+            //eyes
+
+            const eye1 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.070,0.070,0.070),
+            new THREE.MeshBasicMaterial({ color:0x000000 })
+            )
+            eye1.position.x=0.128
+            eye1.position.y=2.091
+            eye1.position.z=0.078
+            chicken.add(eye1)
+
+            const eye2 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.070,0.070,0.070),
+            new THREE.MeshBasicMaterial({ color:0x000000 })
+            )
+            eye2.position.x=0.128
+            eye2.position.y=2.091
+            eye2.position.z=-0.386
+            chicken.add(eye2)
+
+            //wings 
+
+            const wing1 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.430,0.230,0.060),
+            new THREE.MeshBasicMaterial({ color:0xD6D6D6})
+            )
+            wing1.position.x=-0.088
+            wing1.position.y=1.486
+            wing1.position.z=-0.448
+            chicken.add(wing1)
+
+            const wing2 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.430,0.230,0.060),
+            new THREE.MeshBasicMaterial({ color:0xD6D6D6})
+            )
+            wing2.position.x=-0.088
+            wing2.position.y=1.486
+            wing2.position.z=0.133
+            chicken.add(wing2)
+
+            //rear 
+
+            const rear = new THREE.Mesh(
+            new THREE.BoxGeometry(0.060,0.230,0.430),
+            new THREE.MeshBasicMaterial({ color:0xD6D6D6})
+            )
+            rear.position.x=-0.507
+            rear.position.y=1.542
+            rear.position.z=-0.154
+            chicken.add(rear)
+
+            //upHead
+
+            const upHead = new THREE.Mesh(
+            new THREE.BoxGeometry(0.220,0.070,0.080),
+            new THREE.MeshBasicMaterial({ color:0xEF3146 })
+            )
+            upHead.position.x=0.054
+            upHead.position.y=2.254
+            upHead.position.z=-0.153
+            chicken.add(upHead)
+            
+
+            scene.add(chicken)
+
 
             /*************************
             * AXES HELPER
