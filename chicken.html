@@ -45,7 +45,7 @@
              * RENDERER 
              * *******************/
             // create a render and set the size
-            renderer = new THREE.WebGLRenderer({ antialias: false }); // aliasing (jagged edges when rendering)
+            renderer = new THREE.WebGLRenderer({ antialias: true }); // aliasing (jagged edges when rendering)
             renderer.setSize(window.innerWidth, window.innerHeight);
             // configure renderer clear color
             renderer.setClearColor("#444444");
