@@ -48,7 +48,8 @@
             createChicken();
             createTrees();
             createWalls();
-            createEgg()
+            createEgg();
+            createCar()
 
             // add the lights
             createLights();
@@ -825,6 +826,143 @@
             eggSphere.position.z=-11.412
             egg.add(eggSphere)
             scene.add(egg)
+        }
+
+        function createCar(){
+            const car= new THREE.Group()
+            const atrelado= new THREE.Group()
+            
+
+            //RODAS DO CARRO
+            const wheel1 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshBasicMaterial({ color:0x000000 }),
+            )
+            wheel1.position.x = 3.207
+            wheel1.position.y = 0.420
+            wheel1.position.z = 4.569
+            wheel1.rotateX(THREE.Math.degToRad(90))
+            car.add(wheel1)
+
+            const wheel2 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshBasicMaterial({ color:0x000000 }),
+            )
+            wheel2.position.x = 3.207
+            wheel2.position.y = 1.040
+            wheel2.position.z = 6.547
+            wheel2.rotateX(THREE.Math.degToRad(90))
+            car.add(wheel2)
+            
+            const wheel3 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshBasicMaterial({ color:0x000000 }),
+            )
+            wheel3.position.x = 0.645
+            wheel3.position.y = 1.040
+            wheel3.position.z = 4.439
+            wheel3.rotateX(THREE.Math.degToRad(90))
+            car.add(wheel3)
+            
+            const wheel4 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshBasicMaterial({ color:0x000000 }),
+            )
+            wheel4.position.x = 0.645
+            wheel4.position.y = 1.040 
+            wheel4.position.z = 6.547
+            wheel4.rotateX(THREE.Math.degToRad(90))
+            car.add(wheel4)
+
+            //farois do carro
+            const far1 =new THREE.Mesh( new THREE.SphereGeometry( 0.2, 20, 10 ),
+            new THREE.MeshBasicMaterial({ color:0xD6D6D6 }),
+            )
+            far1.position.x = 4.2
+            far1.position.y = 1.9
+            far1.position.z = 4.7
+            car.add(far1)
+
+            const far2 =new THREE.Mesh( new THREE.SphereGeometry( 0.2, 20, 10 ),
+            new THREE.MeshBasicMaterial({ color:0xD6D6D6 }),
+            )
+            far2.position.x = 4.2
+            far2.position.y = 1.9
+            far2.position.z = 5.8
+            car.add(far2)
+
+
+
+            //Rodas do atrelado
+            
+            const wheel5 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshBasicMaterial({ color:0x000000 }),
+            )
+            wheel5.position.x = -2.647
+            wheel5.position.y = 1.040
+            wheel5.position.z = 6.547
+            wheel5.rotateX(THREE.Math.degToRad(90))
+            atrelado.add(wheel5)
+            
+            const wheel6 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshBasicMaterial({ color:0x000000 }),
+            )
+            wheel6.position.x = -2.647
+            wheel6.position.y = 1.040
+            wheel6.position.z = 4.439
+            wheel6.rotateX(THREE.Math.degToRad(90))
+            atrelado.add(wheel6)
+
+
+
+            //Cubos do carro
+
+            const cube1 =new THREE.Mesh( new THREE.BoxGeometry(4.340, 1.400, 1.960),
+            new THREE.MeshBasicMaterial({ color:0x001DF5 }),
+            )
+            cube1.position.x = 1.991
+            cube1.position.y = 1.707
+            cube1.position.z = 5.533
+            car.add(cube1)
+
+            const cube2 =new THREE.Mesh( new THREE.BoxGeometry(2.554, 1.250, 1.960),
+            new THREE.MeshBasicMaterial({ color:0x616870 }),
+            )
+            cube2.position.x = 1.627
+            cube2.position.y = 3.004
+            cube2.position.z = 5.533
+            car.add(cube2)
+
+            //Cubo do atrelado
+
+            const cube3 =new THREE.Mesh( new THREE.BoxGeometry(3.220, 1.140, 1.960),
+            new THREE.MeshBasicMaterial({ color:0x616870 }),
+            )
+            cube3.position.x = -2.493
+            cube3.position.y = 1.588
+            cube3.position.z = 5.511
+            atrelado.add(cube3)
+
+            const cube4 =new THREE.Mesh( new THREE.BoxGeometry(0.120, 0.240, 0.800),
+            new THREE.MeshBasicMaterial({ color:0xD6D6D6 }),
+            )
+            cube4.position.x = -4.076
+            cube4.position.y = 1.353
+            cube4.position.z = 5.541
+            atrelado.add(cube4)
+
+
+            //cilindro do atrelado
+
+            const cld =new THREE.Mesh( new THREE.CylinderGeometry(0.25, 0.25, 0.8),
+            new THREE.MeshBasicMaterial({ color:0x000000 }),
+            )
+            cld.position.x = -0.575
+            cld.position.y = 1.511
+            cld.position.z = 5.561
+            cld.rotateZ(THREE.Math.degToRad(90))
+            atrelado.add(cld)
+
+            car.add(atrelado)
+            
+            //Criar geometria do carro
+            scene.add(car)
         }
 
 
