@@ -56,8 +56,8 @@
             document.body.appendChild(renderer.domElement);
 
             //geometries
-            const geometries1 = [];
-            const geometries2 = [];
+            const car= new THREE.Group()
+            
 
 
             //colors
@@ -70,9 +70,13 @@
 
 
             //RODAS DO CARRO
-            const wheel1 = new THREE.CylinderGeometry(0.420, 0.200, 0.400);
+            const wheel1 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.200, 0.400),
+            new THREE.MeshBasicMaterial({ color:0x000000 }),
+            )
             wheel1.translate(3.207,1,4.569)
             //wheel1.rotation.x = 0.1
+            car.add(wheel1)
+            
 
             const wheel2 = new THREE.CylinderGeometry(0.420, 0.200, 0.400);
             wheel2.translate(3.207,1.040,6.547)
@@ -96,37 +100,6 @@
             //wheel1.rotation.x=THREE.Math.degToRad(90)
 
 
-            const colorsWheel = [];
-            for (let i = 0; i < wheel1.attributes.position.count; i++){
-                colorsWheel.push(colorBlack.r, colorBlack.g, colorBlack.b);
-            }
-                
-
-            wheel1.setAttribute(
-            'color',
-            new THREE.BufferAttribute(new Float32Array(colorsWheel), 3));
-
-            wheel2.setAttribute(
-            'color',
-            new THREE.BufferAttribute(new Float32Array(colorsWheel), 3));
-
-            wheel3.setAttribute(
-            'color',
-            new THREE.BufferAttribute(new Float32Array(colorsWheel), 3));
-
-            wheel4.setAttribute(
-            'color',
-            new THREE.BufferAttribute(new Float32Array(colorsWheel), 3));
-            
-            wheel5.setAttribute(
-            'color',
-            new THREE.BufferAttribute(new Float32Array(colorsWheel), 3));
-            
-            wheel6.setAttribute(
-            'color',
-            new THREE.BufferAttribute(new Float32Array(colorsWheel), 3));
-                
-
 
             //Cubos do carro
             const cube1 = new THREE.BoxGeometry(4.340, 1.400, 1.960);
@@ -143,46 +116,6 @@
             cube4.translate(-4.076,1.353,5.541)
 
 
-            //Cores dos cubos
-            const colorsCube1 = [];
-            for (let i = 0; i < cube1.attributes.position.count; i++){
-                colorsCube1.push(colorBlue.r, colorBlue.g, colorBlue.b);
-            }
-
-            const colorsCube2 = [];
-            for (let i = 0; i < cube2.attributes.position.count; i++){
-                colorsCube2.push(colorGrey.r, colorGrey.g, colorGrey.b);
-            }
-
-            const colorsCube3 = [];
-            for (let i = 0; i < cube3.attributes.position.count; i++){
-                colorsCube3.push(colorGrey.r, colorGrey.g, colorGrey.b);
-            }
-
-            const colorsCube4 = [];
-            for (let i = 0; i < cube4.attributes.position.count; i++){
-                colorsCube4.push(colorMatricula.r, colorMatricula.g, colorMatricula.b);
-            }
-
-            //Aplicar cubos
-            cube1.setAttribute(
-            'color',
-            new THREE.BufferAttribute(new Float32Array(colorsCube1), 3));
-
-            cube2.setAttribute(
-            'color',
-            new THREE.BufferAttribute(new Float32Array(colorsCube2), 3));
-
-            cube3.setAttribute(
-            'color',
-            new THREE.BufferAttribute(new Float32Array(colorsCube3), 3));
-
-            cube4.setAttribute(
-            'color',
-            new THREE.BufferAttribute(new Float32Array(colorsCube4), 3));
-
-
-
             //cilindro do atrelado
             const cld = new THREE.CylinderGeometry(0.090, 0.820, 0.090);
             cld.translate(-0.575,1.511,5.561)
@@ -194,10 +127,6 @@
                 colorsCld.push(colorBlack.r, colorBlack.g, colorBlack.b);
             }
 
-            //Aplicar cilindro
-            cld.setAttribute(
-            'color',
-            new THREE.BufferAttribute(new Float32Array(colorsCld), 3));
 
             
             //Criar geometria do carro
@@ -206,22 +135,6 @@
             //Criar geometria do atrelado
             geometries2.push(wheel5,wheel6,cube3,cube4,cld);
 
-
-            //"Create" car
-            const carGeometry = BufferGeometryUtils.mergeBufferGeometries(geometries1);
-            const car = new THREE.Mesh(
-                carGeometry,
-                new THREE.MeshBasicMaterial({ vertexColors: true })
-            )
-            scene.add(car)
-
-            //"Create" atrelado
-            const atrGeometry = BufferGeometryUtils.mergeBufferGeometries(geometries2);
-            const atr = new THREE.Mesh(
-                atrGeometry,
-                new THREE.MeshBasicMaterial({ vertexColors: true })
-            )
-            scene.add(atr)
 
             /*************************
             * AXES HELPER
