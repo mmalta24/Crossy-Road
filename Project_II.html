@@ -9,13 +9,23 @@
             margin: 0;
             color: #444;
             background: #f6f6f6;
+            font-family: ArcadeFont;
+        }
+
+        @font-face {
+        font-family: ArcadeFont;
+        src: url(fonts/PressStart2P-Regular.ttf);
+        }
+
+        p{
+            color:#EBDB93;
         }
     </style>
 </head>
 
 <body>
     <!-- The BODY will hold the output -->
-
+    <div style="position: absolute;right:40px"><p>Score: <span id='score'>0</span></p></div>
     <script type="module">
         import * as THREE from './libs/three.module.js';
         import * as BufferGeometryUtils from './libs/BufferGeometryUtils.js';
@@ -24,11 +34,14 @@
         // THREEJS RELATED VARIABLES
         let scene, renderer, camera;
 
-        // 3D Models
-        let chicken, wallG1, Tree3, rearChicken,keytest,trueorfalse,wing1,wing2,egg;
+        //dom for score
+        let score=document.querySelector("#score")
 
-        // plane will moves according to mouse cursor position
-        let mousePos = { x: 0, y: 0 };
+        // 3D Models
+        let chicken, wallG1, Tree3, rearChicken,keytest,trueorfalse,wing1,wing2,egg,car,atrelado,trueorfalseAtrelado;
+
+        let colorCar=""
+
 
         // Directional light movement
         let lightParams = {
@@ -48,7 +61,8 @@
             createChicken();
             createTrees();
             createWalls();
-            createEgg()
+            createEgg();
+            createCar()
 
             // add the lights
             createLights();
@@ -113,7 +127,7 @@
             // A directional light shines from a specific direction. 
             // It acts like the sun, that means that all the rays produced are parallel.
             lightParams.object = new THREE.DirectionalLight(0xffffff, .9);
-            lightParams.object.position.set(13, 13, 5);
+            lightParams.object.position.set(10, 5, 20);
 
             /**************
              * SHADOWS
@@ -127,7 +141,8 @@
             // lightParams.object.shadow.camera.bottom = -50;
 
             // make the hemisphere light FOLLOW THE object
-            lightParams.object.target = chicken;
+            console.log(chicken)
+            lightParams.object.target = chicken.children[8];
     
             // to activate the lights, just add them to the scene
             scene.add(lightParams.object);
@@ -206,7 +221,7 @@
             const cenarioElements = BufferGeometryUtils.mergeBufferGeometries(geometries);
             const cenario = new THREE.Mesh(
                 cenarioElements,
-                new THREE.MeshBasicMaterial({ vertexColors: true })
+                new THREE.MeshPhongMaterial({ vertexColors: true })
             )
             scene.add(cenario)
 
@@ -310,6 +325,7 @@
             body.position.x=0.009
             body.position.y=0.571
             body.position.z=12.068
+            body.name = 'body'
             chicken.add(body)
             
 
@@ -391,8 +407,8 @@
             new THREE.MeshPhongMaterial({ color:0xEF3146})
             )
             rearChicken.position.x=0.017
-            rearChicken.position.y=0.580
-            rearChicken.position.z=12.520
+            rearChicken.position.y=0
+            rearChicken.position.z=0.430
 
             const rear1 = new THREE.Mesh(
             new THREE.BoxGeometry(0.070,0.070,0.070),
@@ -402,7 +418,7 @@
             rear1.position.x=0.00
             rear1.position.z=-0.02
             rearChicken.add(rear1)
-            chicken.add(rearChicken)
+            body.add(rearChicken)
 
             //upHead
 
@@ -469,8 +485,16 @@
             // 1 merged geometry -> 1 mesh -> 1 single draw call
             const TreeGeometry = BufferGeometryUtils.mergeBufferGeometries(tree1);
             const Tree = new THREE.Mesh(TreeGeometry,
-                    new THREE.MeshBasicMaterial({ vertexColors: true }))
+                    new THREE.MeshPhongMaterial({ vertexColors: true }))
+
             scene.add(Tree)
+
+            Tree.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            });
 
             const tree2=[]
             
@@ -502,8 +526,15 @@
             // 1 merged geometry -> 1 mesh -> 1 single draw call
             const TreeGeometry2 = BufferGeometryUtils.mergeBufferGeometries(tree2);
             const Tree2 = new THREE.Mesh(TreeGeometry2,
-                new THREE.MeshBasicMaterial({ vertexColors: true }))
+                new THREE.MeshPhongMaterial({ vertexColors: true }))
             scene.add(Tree2)
+
+            Tree2.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            });
 
             const tree3=[]
             
@@ -560,8 +591,15 @@
             // 1 merged geometry -> 1 mesh -> 1 single draw call
             const TreeGeometry4 = BufferGeometryUtils.mergeBufferGeometries(tree4);
             const Tree4 = new THREE.Mesh(TreeGeometry3,
-                new THREE.MeshBasicMaterial({ vertexColors: true }))
+                new THREE.MeshPhongMaterial({ vertexColors: true }))
             scene.add(Tree4)
+
+            Tree4.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            });
 
 
             const tree5=[]
@@ -586,8 +624,15 @@
             // 1 merged geometry -> 1 mesh -> 1 single draw call
             const TreeGeometry5 = BufferGeometryUtils.mergeBufferGeometries(tree5);
             const Tree5 = new THREE.Mesh(TreeGeometry5,
-                new THREE.MeshBasicMaterial({ vertexColors: true }))
+                new THREE.MeshPhongMaterial({ vertexColors: true }))
             scene.add(Tree5)
+
+            Tree5.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            });
 
             const tree6=[]
             
@@ -611,8 +656,15 @@
             // 1 merged geometry -> 1 mesh -> 1 single draw call
             const TreeGeometry6 = BufferGeometryUtils.mergeBufferGeometries(tree6);
             const Tree6 = new THREE.Mesh(TreeGeometry6,
-                new THREE.MeshBasicMaterial({ vertexColors: true }))
+                new THREE.MeshPhongMaterial({ vertexColors: true }))
             scene.add(Tree6)
+
+            Tree6.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            });
 
             const tree7=[]
             
@@ -636,8 +688,15 @@
             // 1 merged geometry -> 1 mesh -> 1 single draw call
             const TreeGeometry7 = BufferGeometryUtils.mergeBufferGeometries(tree7);
             const Tree7 = new THREE.Mesh(TreeGeometry7,
-                new THREE.MeshBasicMaterial({ vertexColors: true }))
+                new THREE.MeshPhongMaterial({ vertexColors: true }))
             scene.add(Tree7)
+
+            Tree7.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            });
 
             const tree8=[]
             
@@ -661,8 +720,15 @@
             // 1 merged geometry -> 1 mesh -> 1 single draw call
             const TreeGeometry8 = BufferGeometryUtils.mergeBufferGeometries(tree8);
             const Tree8 = new THREE.Mesh(TreeGeometry8,
-                new THREE.MeshBasicMaterial({ vertexColors: true }))
+                new THREE.MeshPhongMaterial({ vertexColors: true }))
             scene.add(Tree8)
+
+            Tree8.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            });
 
             const tree9=[]
             
@@ -686,8 +752,15 @@
             // 1 merged geometry -> 1 mesh -> 1 single draw call
             const TreeGeometry9 = BufferGeometryUtils.mergeBufferGeometries(tree9);
             const Tree9 = new THREE.Mesh(TreeGeometry9,
-                new THREE.MeshBasicMaterial({ vertexColors: true }))
+                new THREE.MeshPhongMaterial({ vertexColors: true }))
             scene.add(Tree9)
+
+            Tree9.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            });
 
 
             const tree10=[]
@@ -711,8 +784,15 @@
             // 1 merged geometry -> 1 mesh -> 1 single draw call
             const TreeGeometry10 = BufferGeometryUtils.mergeBufferGeometries(tree10);
             const Tree10 = new THREE.Mesh(TreeGeometry10,
-                new THREE.MeshBasicMaterial({ vertexColors: true }))
+                new THREE.MeshPhongMaterial({ vertexColors: true }))
             scene.add(Tree10)
+
+            Tree10.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            });
 
             const tree11=[]
             // TRUNK: 1st geometry
@@ -735,8 +815,15 @@
             // 1 merged geometry -> 1 mesh -> 1 single draw call
             const TreeGeometry11 = BufferGeometryUtils.mergeBufferGeometries(tree11);
             const Tree11 = new THREE.Mesh(TreeGeometry11,
-                new THREE.MeshBasicMaterial({ vertexColors: true }))
+                new THREE.MeshPhongMaterial({ vertexColors: true }))
             scene.add(Tree11)
+
+            Tree11.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            });
 
             const tree12=[]
             // TRUNK: 1st geometry
@@ -759,8 +846,15 @@
             // 1 merged geometry -> 1 mesh -> 1 single draw call
             const TreeGeometry12 = BufferGeometryUtils.mergeBufferGeometries(tree12);
             const Tree12 = new THREE.Mesh(TreeGeometry12,
-                new THREE.MeshBasicMaterial({ vertexColors: true }))
+                new THREE.MeshPhongMaterial({ vertexColors: true }))
             scene.add(Tree12)
+
+            Tree12.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            });
 
             const tree13=[]
             
@@ -784,8 +878,15 @@
             // 1 merged geometry -> 1 mesh -> 1 single draw call
             const TreeGeometry13 = BufferGeometryUtils.mergeBufferGeometries(tree13);
             const Tree13 = new THREE.Mesh(TreeGeometry13,
-                new THREE.MeshBasicMaterial({ vertexColors: true }))
+                new THREE.MeshPhongMaterial({ vertexColors: true }))
             scene.add(Tree13)
+
+            Tree13.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            });
 
         }
 
@@ -793,7 +894,7 @@
             wallG1 =  new THREE.Group();
             const wall1 = new THREE.Mesh(
             new THREE.BoxGeometry(100.000,-3.720,1.000),
-            new THREE.MeshBasicMaterial({ color:0x757575 }),
+            new THREE.MeshPhongMaterial({ color:0x757575 }),
             )
             wall1.position.x=0
             wall1.position.y=0.667
@@ -801,16 +902,30 @@
             wallG1.add(wall1)
             scene.add(wallG1)
 
+            wallG1.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            });
+
             const wallG2 =  new THREE.Group();
             const wall2 = new THREE.Mesh(
             new THREE.BoxGeometry(100.000,-3.720,1.000),
-            new THREE.MeshBasicMaterial({ color:0x757575 }),
+            new THREE.MeshPhongMaterial({ color:0x757575 }),
             )
             wall2.position.x=0
             wall2.position.y=0.667
             wall2.position.z=16.033
             wallG2.add(wall2)
             scene.add(wallG2)
+
+            wallG1.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            });
         }
 
         function createEgg(){
@@ -827,15 +942,170 @@
             scene.add(egg)
         }
 
+        function createCar(){
+            car= new THREE.Group()
+            atrelado= new THREE.Group()
+            
+
+            //RODAS DO CARRO
+            const wheel1 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshPhongMaterial({ color:0x000000 }),
+            )
+            wheel1.position.x = 3.207
+            wheel1.position.y = 0.420
+            wheel1.position.z = 4.569
+            wheel1.rotateX(THREE.Math.degToRad(90))
+            car.add(wheel1)
+
+            const wheel2 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshPhongMaterial({ color:0x000000 }),
+            )
+            wheel2.position.x = 3.207
+            wheel2.position.y = 0.420
+            wheel2.position.z = 6.547
+            wheel2.rotateX(THREE.Math.degToRad(90))
+            car.add(wheel2)
+            
+            const wheel3 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshPhongMaterial({ color:0x000000 }),
+            )
+            wheel3.position.x = 0.645
+            wheel3.position.y = 0.420
+            wheel3.position.z = 4.439
+            wheel3.rotateX(THREE.Math.degToRad(90))
+            car.add(wheel3)
+            
+            const wheel4 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshPhongMaterial({ color:0x000000 }),
+            )
+            wheel4.position.x = 0.645
+            wheel4.position.y = 0.420 
+            wheel4.position.z = 6.547
+            wheel4.rotateX(THREE.Math.degToRad(90))
+            car.add(wheel4)
+
+            //farois do carro
+            const far1 =new THREE.Mesh( new THREE.SphereGeometry( 0.2, 20, 10 ),
+            new THREE.MeshPhongMaterial({ color:0xD6D6D6 }),
+            )
+            far1.position.x = 4.2
+            far1.position.y = 1.28
+            far1.position.z = 5
+            car.add(far1)
+
+            const far2 =new THREE.Mesh( new THREE.SphereGeometry( 0.2, 20, 10 ),
+            new THREE.MeshPhongMaterial({ color:0xD6D6D6 }),
+            )
+            far2.position.x = 4.2
+            far2.position.y = 1.28
+            far2.position.z = 6.1
+            car.add(far2)
+
+
+
+            //Rodas do atrelado
+            
+            const wheel5 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshPhongMaterial({ color:0x000000}),
+            )
+            wheel5.position.x = -2.647
+            wheel5.position.y = 0.420
+            wheel5.position.z = 6.547
+            wheel5.rotateX(THREE.Math.degToRad(90))
+            atrelado.add(wheel5)
+            
+            const wheel6 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshPhongMaterial({ color:0x000000 }),
+            )
+            wheel6.position.x = -2.647
+            wheel6.position.y = 0.420
+            wheel6.position.z = 4.439
+            wheel6.rotateX(THREE.Math.degToRad(90))
+
+            atrelado.add(wheel6)
+
+
+
+            //Cubos do carro
+
+            const cube1 =new THREE.Mesh( new THREE.BoxGeometry(4.340, 1.400, 1.960),
+            new THREE.MeshPhongMaterial({ color:0x001FD5 }),
+            )
+            cube1.position.x = 1.991
+            cube1.position.y = 1.087
+            cube1.position.z = 5.533
+            cube1.name='capot'
+            car.add(cube1)
+
+            const cube2 =new THREE.Mesh( new THREE.BoxGeometry(2.554, 1.250, 1.960),
+            new THREE.MeshPhongMaterial({ color:0x616870 }),
+            )
+            cube2.position.x = 1.627
+            cube2.position.y = 2.384
+            cube2.position.z = 5.533
+            car.add(cube2)
+
+            //Cubo do atrelado
+
+            const cube3 =new THREE.Mesh( new THREE.BoxGeometry(3.220, 1.140, 1.960),
+            new THREE.MeshPhongMaterial({ color:0x616870 }),
+            )
+            cube3.position.x = -2.493
+            cube3.position.y = 0.968
+            cube3.position.z = 5.511
+            atrelado.add(cube3)
+
+            const cube4 =new THREE.Mesh( new THREE.BoxGeometry(0.120, 0.240, 0.800),
+            new THREE.MeshPhongMaterial({ color:0xD6D6D6 }),
+            )
+            cube4.position.x = -4.076
+            cube4.position.y = 0.733
+            cube4.position.z = 5.541
+            atrelado.add(cube4)
+
+
+            //cilindro do atrelado
+
+            const cld =new THREE.Mesh( new THREE.CylinderGeometry(0.25, 0.25, 0.8),
+            new THREE.MeshPhongMaterial({ color:0x000000 }),
+            )
+            cld.position.x = -0.575
+            cld.position.y = 0.891
+            cld.position.z = 5.561
+            cld.rotateZ(THREE.Math.degToRad(90))
+            atrelado.add(cld)
+
+            car.add(atrelado)
+            
+            car.position.x=-20
+            //car.position.x=25
+            //Criar geometria do carro
+            scene.add(car)
+            console.log(car);
+            car.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            });
+            
+            
+        }
+
 
         function render() {
 
             //rotate rear chicken
             if (keytest == 1) {
+                if(checkColision_Chicken_Egg()){
+                    chicken.position.z=0
+                }
+                else{
 				chicken.position.z-=0.05;
                 chicken.position.y=0.01
                 wing1.rotation.z=5
                 wing2.rotation.z=-5
+                }
 			}
             else{
                 wing1.rotation.z=0
@@ -851,15 +1121,36 @@
             }
             rotation(trueorfalse)
 
+            //car move
+            if(car.position.x==25){
+                car.position.x=-20
+                car.position.x+=0.250
+            }
+            else{
+                car.position.x+=0.250
+            }
+            //rotation atrelado
+
+            if(atrelado.position.y>=0.250){
+                trueorfalseAtrelado=true
+            }
+            else if(atrelado.position.y<=0.150){
+                trueorfalseAtrelado=false
+            }
+            setPositionAtrelado(trueorfalseAtrelado)
+
+
+            //car.position.x+=0.250
+
 
             //  // camera TO object relative offset
-            // let relativeOffset = new THREE.Vector3(0, 4, 16);//(0,4,16)
+            let relativeOffset = new THREE.Vector3(0, 4, 16);//(0,4,16)
             // // updates the offset with the object’s global transformation matrix
-            // let cameraOffset = relativeOffset.applyMatrix4(chicken.matrixWorld);
+            let cameraOffset = relativeOffset.applyMatrix4(chicken.matrixWorld);
             // // updates the camera position with the new offset
-            // camera.position.copy(cameraOffset)
+            camera.position.copy(cameraOffset)
             // // camera looks at the object’s position
-            // camera.lookAt(chicken.position);
+            camera.lookAt(chicken.position);
 
             
             lightParams.helperShadow.update()
@@ -876,6 +1167,16 @@
                 /*** MOVE TANK BASE ***/
                 if (key == "w") {
                     keytest = 1;
+                }
+                else if(key== "c"){
+                    if(colorCar=='blue' || colorCar==''){
+                    car.children[6].material= new THREE.MeshPhongMaterial({ color:0x404040 })
+                    colorCar='white'
+                    }
+                    else{
+                        car.children[6].material= new THREE.MeshPhongMaterial({ color:0x001DF5 })
+                        colorCar='blue'
+                    }
                 }
 
         })
@@ -899,6 +1200,27 @@
             }
         }
 
+        function setPositionAtrelado(logic){
+            if(logic){
+                atrelado.position.y-=0.03
+            }
+            else{
+                atrelado.position.y+=0.02
+            }
+        }
+
+        function checkColision_Chicken_Egg(){
+            let chickenBox = new THREE.Box3().setFromObject(chicken);
+            let eggBox = new THREE.Box3().setFromObject(egg)
+            let collision = chickenBox.intersectsBox(eggBox);
+            if (collision) {
+                    score.innerHTML=+score.innerHTML+20
+					return true;
+			}
+            else {
+                return false
+            }
+        }
 
     </script>
 </body>
