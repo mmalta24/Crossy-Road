@@ -57,6 +57,7 @@
 
             //geometries
             const car= new THREE.Group()
+            const atrelado= new THREE.Group()
             
 
 
@@ -70,70 +71,135 @@
 
 
             //RODAS DO CARRO
-            const wheel1 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.200, 0.400),
+            const wheel1 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
             new THREE.MeshBasicMaterial({ color:0x000000 }),
             )
-            wheel1.translate(3.207,1,4.569)
-            //wheel1.rotation.x = 0.1
+            wheel1.position.x = 3.207
+            wheel1.position.y = 1.040
+            wheel1.position.z = 4.569
+            wheel1.rotateX(THREE.Math.degToRad(90))
             car.add(wheel1)
+
+            const wheel2 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshBasicMaterial({ color:0x000000 }),
+            )
+            wheel2.position.x = 3.207
+            wheel2.position.y = 1.040
+            wheel2.position.z = 6.547
+            wheel2.rotateX(THREE.Math.degToRad(90))
+            car.add(wheel2)
             
+            const wheel3 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshBasicMaterial({ color:0x000000 }),
+            )
+            wheel3.position.x = 0.645
+            wheel3.position.y = 1.040
+            wheel3.position.z = 4.439
+            wheel3.rotateX(THREE.Math.degToRad(90))
+            car.add(wheel3)
+            
+            const wheel4 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshBasicMaterial({ color:0x000000 }),
+            )
+            wheel4.position.x = 0.645
+            wheel4.position.y = 1.040 
+            wheel4.position.z = 6.547
+            wheel4.rotateX(THREE.Math.degToRad(90))
+            car.add(wheel4)
 
-            const wheel2 = new THREE.CylinderGeometry(0.420, 0.200, 0.400);
-            wheel2.translate(3.207,1.040,6.547)
-            //wheel1.rotation.x=THREE.Math.degToRad(90)
+            //farois do carro
+            const far1 =new THREE.Mesh( new THREE.SphereGeometry( 0.2, 20, 10 ),
+            new THREE.MeshBasicMaterial({ color:0xD6D6D6 }),
+            )
+            far1.position.x = 4.2
+            far1.position.y = 1.9
+            far1.position.z = 4.7
+            car.add(far1)
 
-            const wheel3 = new THREE.CylinderGeometry(0.420, 0.200, 0.400);
-            wheel3.translate(0.645,1.040,4.439)
-            //wheel1.rotation.x=THREE.Math.degToRad(90)
+            const far2 =new THREE.Mesh( new THREE.SphereGeometry( 0.2, 20, 10 ),
+            new THREE.MeshBasicMaterial({ color:0xD6D6D6 }),
+            )
+            far2.position.x = 4.2
+            far2.position.y = 1.9
+            far2.position.z = 5.8
+            car.add(far2)
 
-            const wheel4 = new THREE.CylinderGeometry(0.420, 0.200, 0.400);
-            wheel4.translate(0.645,1.040,6.547)
-            //wheel1.rotation.x=THREE.Math.degToRad(90)
+
 
             //Rodas do atrelado
-            const wheel5 = new THREE.CylinderGeometry(0.420, 0.200, 0.400);
-            wheel5.translate(-2.647,1.040,6.547)
-            //wheel1.rotation.x=THREE.Math.degToRad(90)
-
-            const wheel6 = new THREE.CylinderGeometry(0.420, 0.200, 0.400);
-            wheel6.translate(-2.647,1.040,4.439)
-            //wheel1.rotation.x=THREE.Math.degToRad(90)
+            
+            const wheel5 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshBasicMaterial({ color:0x000000 }),
+            )
+            wheel5.position.x = -2.647
+            wheel5.position.y = 1.040
+            wheel5.position.z = 6.547
+            wheel5.rotateX(THREE.Math.degToRad(90))
+            atrelado.add(wheel5)
+            
+            const wheel6 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshBasicMaterial({ color:0x000000 }),
+            )
+            wheel6.position.x = -2.647
+            wheel6.position.y = 1.040
+            wheel6.position.z = 4.439
+            wheel6.rotateX(THREE.Math.degToRad(90))
+            atrelado.add(wheel6)
 
 
 
             //Cubos do carro
-            const cube1 = new THREE.BoxGeometry(4.340, 1.400, 1.960);
-            cube1.translate(1.991,1.707,5.533)
 
-            const cube2 = new THREE.BoxGeometry(2.554, 1.250, 1.960);
-            cube2.translate(1.627,3.004,5.533)
+            const cube1 =new THREE.Mesh( new THREE.BoxGeometry(4.340, 1.400, 1.960),
+            new THREE.MeshBasicMaterial({ color:0x001DF5 }),
+            )
+            cube1.position.x = 1.991
+            cube1.position.y = 1.707
+            cube1.position.z = 5.533
+            car.add(cube1)
+
+            const cube2 =new THREE.Mesh( new THREE.BoxGeometry(2.554, 1.250, 1.960),
+            new THREE.MeshBasicMaterial({ color:0x616870 }),
+            )
+            cube2.position.x = 1.627
+            cube2.position.y = 3.004
+            cube2.position.z = 5.533
+            car.add(cube2)
 
             //Cubo do atrelado
-            const cube3 = new THREE.BoxGeometry(3.220, 1.140, 1.960);
-            cube3.translate(-2.493,1.588,5.511)
 
-            const cube4 = new THREE.BoxGeometry(0.120, 0.240, 0.800);
-            cube4.translate(-4.076,1.353,5.541)
+            const cube3 =new THREE.Mesh( new THREE.BoxGeometry(3.220, 1.140, 1.960),
+            new THREE.MeshBasicMaterial({ color:0x616870 }),
+            )
+            cube3.position.x = -2.493
+            cube3.position.y = 1.588
+            cube3.position.z = 5.511
+            atrelado.add(cube3)
+
+            const cube4 =new THREE.Mesh( new THREE.BoxGeometry(0.120, 0.240, 0.800),
+            new THREE.MeshBasicMaterial({ color:0xD6D6D6 }),
+            )
+            cube4.position.x = -4.076
+            cube4.position.y = 1.353
+            cube4.position.z = 5.541
+            atrelado.add(cube4)
 
 
             //cilindro do atrelado
-            const cld = new THREE.CylinderGeometry(0.090, 0.820, 0.090);
-            cld.translate(-0.575,1.511,5.561)
-            //cld.rotation.z=THREE.Math.degToRad(90)
 
-            //cor para o cilindro
-            const colorsCld = [];
-            for (let i = 0; i < cld.attributes.position.count; i++){
-                colorsCld.push(colorBlack.r, colorBlack.g, colorBlack.b);
-            }
+            const cld =new THREE.Mesh( new THREE.CylinderGeometry(0.25, 0.25, 0.8),
+            new THREE.MeshBasicMaterial({ color:0x000000 }),
+            )
+            cld.position.x = -0.575
+            cld.position.y = 1.511
+            cld.position.z = 5.561
+            cld.rotateZ(THREE.Math.degToRad(90))
+            atrelado.add(cld)
 
-
+            car.add(atrelado)
             
             //Criar geometria do carro
-            geometries1.push(wheel1,wheel2,wheel3,wheel4,cube1,cube2);
-
-            //Criar geometria do atrelado
-            geometries2.push(wheel5,wheel6,cube3,cube4,cld);
+            scene.add(car)
 
 
             /*************************
