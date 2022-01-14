@@ -14,18 +14,18 @@
 </head>
 
 <body>
-    <!-- This DIV will hold the output -->
-    <div class="world" id="world"></div>
+    <!-- The BODY will hold the output -->
 
     <script type="module">
         import * as THREE from './libs/three.module.js';
         import * as BufferGeometryUtils from './libs/BufferGeometryUtils.js';
+        import { OrbitControls } from './libs/OrbitControls.js';
 
         // THREEJS RELATED VARIABLES
         let scene, renderer, camera;
 
         // 3D Models
-        let chicken, wallG1, Tree3, rearChicken,keytest,trueorfalse,wing1,wing2;
+        let chicken, wallG1, Tree3, rearChicken,keytest,trueorfalse,wing1,wing2,egg;
 
         // plane will moves according to mouse cursor position
         let mousePos = { x: 0, y: 0 };
@@ -47,7 +47,8 @@
             createRoadGarden();
             createChicken();
             createTrees();
-            createWalls()
+            createWalls();
+            createEgg()
 
             // add the lights
             createLights();
@@ -66,6 +67,7 @@
             // create a camera, which defines where we're looking at
             const aspect = window.innerWidth / window.innerHeight;
             camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 100);
+            camera.position.set(0,10,20)
 
 
             // create a render and set the size
@@ -82,7 +84,11 @@
             renderer.shadowMap.enabled = true;
 
             // add the output of the renderer to the DIV with id "world"
-            document.getElementById('world').appendChild(renderer.domElement);
+            document.body.appendChild(renderer.domElement);
+
+
+            const controls = new OrbitControls(camera, renderer.domElement);
+
 
             // listen to the screen: if the user resizes it we have to update the camera and the renderer size
             window.addEventListener('resize', handleWindowResize, false);
@@ -107,7 +113,7 @@
             // A directional light shines from a specific direction. 
             // It acts like the sun, that means that all the rays produced are parallel.
             lightParams.object = new THREE.DirectionalLight(0xffffff, .9);
-            lightParams.object.position.set(130, 130, 50);
+            lightParams.object.position.set(13, 13, 5);
 
             /**************
              * SHADOWS
@@ -115,10 +121,10 @@
             lightParams.object.castShadow = true;
             // augment the visible volume of the projected shadow
             // console.log(lightParams.object.shadow.camera)
-            lightParams.object.shadow.camera.left = -50;
-            lightParams.object.shadow.camera.right = 50;
-            lightParams.object.shadow.camera.top = 50;
-            lightParams.object.shadow.camera.bottom = -50;
+            // lightParams.object.shadow.camera.left = -50;
+            // lightParams.object.shadow.camera.right = 50;
+            // lightParams.object.shadow.camera.top = 50;
+            // lightParams.object.shadow.camera.bottom = -50;
 
             // make the hemisphere light FOLLOW THE object
             lightParams.object.target = chicken;
@@ -212,7 +218,9 @@
         }
 
         function createChicken() {
-            chicken =  new THREE.Group();
+            // chicken =  new THREE.Group();
+
+            chicken =  new THREE.Object3D();
 
             //body
 
@@ -223,7 +231,7 @@
             new THREE.MeshPhongMaterial({ color:0xFC6F3F }),
             )
             foot.position.x=-0.195
-            foot.position.y=0.5
+            foot.position.y=0.080
             foot.position.z=12.1
             chicken.add(foot)
             console.log(foot);
@@ -233,7 +241,7 @@
             new THREE.MeshPhongMaterial({ color:0xFC6F3F })
             )
             foot1.position.x=0.197
-            foot1.position.y=0.5
+            foot1.position.y=0.080
             foot1.position.z=12.1
             chicken.add(foot1)
 
@@ -243,7 +251,7 @@
             new THREE.MeshPhongMaterial({ color:0xFC6F3F })
             )
             finger1.position.x=0.132
-            finger1.position.y=0.5
+            finger1.position.y=0.080
             finger1.position.z=11.949
             chicken.add(finger1)
 
@@ -252,7 +260,7 @@
             new THREE.MeshPhongMaterial({ color:0xFC6F3F })
             )
             finger2.position.x=-0.258
-            finger2.position.y=0.5
+            finger2.position.y=0.080
             finger2.position.z=11.949
             chicken.add(finger2)
 
@@ -261,7 +269,7 @@
             new THREE.MeshPhongMaterial({ color:0xFC6F3F })
             )
             finger3.position.x=-0.132
-            finger3.position.y=0.5
+            finger3.position.y=0.080
             finger3.position.z=11.949
             chicken.add(finger3)
 
@@ -270,7 +278,7 @@
             new THREE.MeshPhongMaterial({ color:0xFC6F3F })
             )
             finger4.position.x=0.262
-            finger4.position.y=0.5
+            finger4.position.y=0.080
             finger4.position.z=11.949
             chicken.add(finger4)
 
@@ -280,7 +288,7 @@
             new THREE.MeshPhongMaterial({ color:0xFC6F3F })
             )
             legs1.position.x=-0.191
-            legs1.position.y=0.654
+            legs1.position.y=0.234
             legs1.position.z=12.1
             chicken.add(legs1)
 
@@ -289,7 +297,7 @@
             new THREE.MeshPhongMaterial({ color:0xFC6F3F })
             )
             legs2.position.x=0.194
-            legs2.position.y=0.654
+            legs2.position.y=0.234
             legs2.position.z=12.1
             chicken.add(legs2)
 
@@ -300,7 +308,7 @@
             new THREE.MeshPhongMaterial({ color:0xFFFFFF })
             )
             body.position.x=0.009
-            body.position.y=0.991
+            body.position.y=0.571
             body.position.z=12.068
             chicken.add(body)
             
@@ -312,7 +320,7 @@
             new THREE.MeshPhongMaterial({ color:0xFFFFFF })
             )
             head.position.x=0.011
-            head.position.y=1.463
+            head.position.y=1.043
             head.position.z=11.94
             chicken.add(head)
 
@@ -323,7 +331,7 @@
             new THREE.MeshPhongMaterial({ color:0xFC6F3F })
             )
             mouth.position.x=0.002
-            mouth.position.y=1.445
+            mouth.position.y=1.025
             mouth.position.z=11.562
             chicken.add(mouth)
 
@@ -332,7 +340,7 @@
             new THREE.MeshPhongMaterial({ color:0xEF3146 })
             )
             mouth1.position.x=0.001
-            mouth1.position.y=1.317
+            mouth1.position.y=0.897
             mouth1.position.z=11.608
             chicken.add(mouth1)
 
@@ -343,7 +351,7 @@
             new THREE.MeshPhongMaterial({ color:0x000000 })
             )
             eye1.position.x=0.247
-            eye1.position.y=1.591
+            eye1.position.y=1.171
             eye1.position.z=11.825
             chicken.add(eye1)
 
@@ -352,7 +360,7 @@
             new THREE.MeshPhongMaterial({ color:0x000000 })
             )
             eye2.position.x=-0.221
-            eye2.position.y=1.591
+            eye2.position.y=1.171
             eye2.position.z=11.825
             chicken.add(eye2)
 
@@ -363,7 +371,7 @@
             new THREE.MeshPhongMaterial({ color:0xD6D6D6})
             )
             wing1.position.x=-0.283
-            wing1.position.y=0.986
+            wing1.position.y=0.566
             wing1.position.z=12.066
             chicken.add(wing1)
 
@@ -372,7 +380,7 @@
             new THREE.MeshPhongMaterial({ color:0xD6D6D6})
             )
             wing2.position.x=0.309
-            wing2.position.y=0.986
+            wing2.position.y=0.566
             wing2.position.z=12.066
             chicken.add(wing2)
 
@@ -383,7 +391,7 @@
             new THREE.MeshPhongMaterial({ color:0xEF3146})
             )
             rearChicken.position.x=0.017
-            rearChicken.position.y=1.00
+            rearChicken.position.y=0.580
             rearChicken.position.z=12.520
 
             const rear1 = new THREE.Mesh(
@@ -403,9 +411,13 @@
             new THREE.MeshPhongMaterial({ color:0xEF3146 })
             )
             upHead.position.x=0.008
-            upHead.position.y=1.754
+            upHead.position.y=1.334
             upHead.position.z=11.942
             chicken.add(upHead)
+            
+
+            let axesBody = new THREE.AxesHelper(20);
+            body.add(axesBody);
             
 
             scene.add(chicken)
@@ -416,6 +428,8 @@
                     child.receiveShadow = true;
                 }
             });
+
+            
         }
 
         function createTrees() {
@@ -799,6 +813,20 @@
             scene.add(wallG2)
         }
 
+        function createEgg(){
+            egg= new THREE.Group()
+
+            const eggSphere= new THREE.Mesh(
+                new THREE.SphereGeometry(0.260, 0.455, 0.260),
+                new THREE.MeshBasicMaterial({color:0xffffff})
+            )
+            eggSphere.position.x=-0.329
+            eggSphere.position.y=0.667
+            eggSphere.position.z=-11.412
+            egg.add(eggSphere)
+            scene.add(egg)
+        }
+
 
         function render() {
 
@@ -824,17 +852,17 @@
             rotation(trueorfalse)
 
 
-             // camera TO object relative offset
-            let relativeOffset = new THREE.Vector3(0, 4, 16);//(0,4,16)
-            // updates the offset with the object’s global transformation matrix
-            let cameraOffset = relativeOffset.applyMatrix4(chicken.matrixWorld);
-            // updates the camera position with the new offset
-            camera.position.copy(cameraOffset)
-            // camera looks at the object’s position
-            camera.lookAt(chicken.position);
+            //  // camera TO object relative offset
+            // let relativeOffset = new THREE.Vector3(0, 4, 16);//(0,4,16)
+            // // updates the offset with the object’s global transformation matrix
+            // let cameraOffset = relativeOffset.applyMatrix4(chicken.matrixWorld);
+            // // updates the camera position with the new offset
+            // camera.position.copy(cameraOffset)
+            // // camera looks at the object’s position
+            // camera.lookAt(chicken.position);
 
             
-            
+            lightParams.helperShadow.update()
             //console.log(rearChicken.rotation.y);
             
 
