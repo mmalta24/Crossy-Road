@@ -20,12 +20,23 @@
         p{
             color:#EBDB93;
         }
+
+        button{
+            background-color: #EF3146;
+            border: none;
+            box-shadow: 2px 2px #000000;
+            font-family: ArcadeFont;
+            padding: 1%;
+            width: auto;
+
+        }
     </style>
 </head>
 
 <body>
     <!-- The BODY will hold the output -->
     <div style="position: absolute;right:40px"><p>Score: <span id='score'>0</span></p></div>
+    <div style="z-index: 2;position: absolute;width:100%;height:89%;display:flex;flex:row;justify-content: center;align-items: center;visibility: hidden;"><button>Try Again</button></div>
     <script type="module">
         import * as THREE from './libs/three.module.js';
         import * as BufferGeometryUtils from './libs/BufferGeometryUtils.js';
@@ -38,7 +49,7 @@
         let score=document.querySelector("#score")
 
         // 3D Models
-        let chicken, wallG1, Tree3, rearChicken,keytest,trueorfalse,wing1,wing2,car,atrelado,trueorfalseAtrelado, littleChicken;
+        let chicken, wallG1, Tree3, rearChicken,keytest,trueorfalse,wing1,wing2,car,car2,car3,atrelado3,atrelado2,atrelado,trueorfalseAtrelado, littleChicken;
 
         let colorCar=""
 
@@ -62,6 +73,8 @@
             createTrees();
             createWalls();
             createCar();
+            createCar2();
+            createCar3();
             createLittleChicken();
 
             // add the lights
@@ -249,7 +262,6 @@
             foot.position.y=0.080
             foot.position.z=12.1
             chicken.add(foot)
-            console.log(foot);
 
             const foot1 = new THREE.Mesh(
             new THREE.BoxGeometry(0.190,0.060,0.190),
@@ -935,7 +947,7 @@
 
             //RODAS DO CARRO
             const wheel1 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
-            new THREE.MeshPhongMaterial({ color:0x000000 }),
+            new THREE.MeshPhongMaterial({ color:0x272727}),
             )
             wheel1.position.x = 3.207
             wheel1.position.y = 0.420
@@ -944,7 +956,7 @@
             car.add(wheel1)
 
             const wheel2 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
-            new THREE.MeshPhongMaterial({ color:0x000000 }),
+            new THREE.MeshPhongMaterial({ color:0x272727 }),
             )
             wheel2.position.x = 3.207
             wheel2.position.y = 0.420
@@ -953,7 +965,7 @@
             car.add(wheel2)
             
             const wheel3 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
-            new THREE.MeshPhongMaterial({ color:0x000000 }),
+            new THREE.MeshPhongMaterial({ color:0x272727 }),
             )
             wheel3.position.x = 0.645
             wheel3.position.y = 0.420
@@ -962,7 +974,7 @@
             car.add(wheel3)
             
             const wheel4 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
-            new THREE.MeshPhongMaterial({ color:0x000000 }),
+            new THREE.MeshPhongMaterial({ color:0x272727 }),
             )
             wheel4.position.x = 0.645
             wheel4.position.y = 0.420 
@@ -992,7 +1004,7 @@
             //Rodas do atrelado
             
             const wheel5 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
-            new THREE.MeshPhongMaterial({ color:0x000000}),
+            new THREE.MeshPhongMaterial({ color:0x272727}),
             )
             wheel5.position.x = -2.647
             wheel5.position.y = 0.420
@@ -1001,7 +1013,7 @@
             atrelado.add(wheel5)
             
             const wheel6 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
-            new THREE.MeshPhongMaterial({ color:0x000000 }),
+            new THREE.MeshPhongMaterial({ color:0x272727 }),
             )
             wheel6.position.x = -2.647
             wheel6.position.y = 0.420
@@ -1015,7 +1027,7 @@
             //Cubos do carro
 
             const cube1 =new THREE.Mesh( new THREE.BoxGeometry(4.340, 1.400, 1.960),
-            new THREE.MeshPhongMaterial({ color:0x001FD5 }),
+            new THREE.MeshPhongMaterial({ color:0x003F9A }),
             )
             cube1.position.x = 1.991
             cube1.position.y = 1.087
@@ -1024,7 +1036,7 @@
             car.add(cube1)
 
             const cube2 =new THREE.Mesh( new THREE.BoxGeometry(2.554, 1.250, 1.960),
-            new THREE.MeshPhongMaterial({ color:0x616870 }),
+            new THREE.MeshPhongMaterial({ color:0xAEAEAE }),
             )
             cube2.position.x = 1.627
             cube2.position.y = 2.384
@@ -1053,7 +1065,7 @@
             //cilindro do atrelado
 
             const cld =new THREE.Mesh( new THREE.CylinderGeometry(0.25, 0.25, 0.8),
-            new THREE.MeshPhongMaterial({ color:0x000000 }),
+            new THREE.MeshPhongMaterial({ color:0x272727 }),
             )
             cld.position.x = -0.575
             cld.position.y = 0.891
@@ -1067,13 +1079,318 @@
             //car.position.x=25
             //Criar geometria do carro
             scene.add(car)
-            console.log(car);
             car.traverse(function (child) {
                 if (child instanceof THREE.Mesh) {
                     child.castShadow = true;
                     child.receiveShadow = true;
                 }
             });
+            
+            
+        }
+
+        function createCar2(){
+            car2= new THREE.Group()
+            atrelado2= new THREE.Group()
+            
+
+            //RODAS DO CARRO
+            const wheel1 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshPhongMaterial({ color:0x272727 }),
+            )
+            wheel1.position.x = 3.207
+            wheel1.position.y = 0.420
+            wheel1.position.z = 4.569
+            wheel1.rotateX(THREE.Math.degToRad(90))
+            car2.add(wheel1)
+
+            const wheel2 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshPhongMaterial({ color:0x272727 }),
+            )
+            wheel2.position.x = 3.207
+            wheel2.position.y = 0.420
+            wheel2.position.z = 6.547
+            wheel2.rotateX(THREE.Math.degToRad(90))
+            car2.add(wheel2)
+            
+            const wheel3 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshPhongMaterial({ color:0x272727 }),
+            )
+            wheel3.position.x = 0.645
+            wheel3.position.y = 0.420
+            wheel3.position.z = 4.439
+            wheel3.rotateX(THREE.Math.degToRad(90))
+            car2.add(wheel3)
+            
+            const wheel4 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshPhongMaterial({ color:0x272727 }),
+            )
+            wheel4.position.x = 0.645
+            wheel4.position.y = 0.420 
+            wheel4.position.z = 6.547
+            wheel4.rotateX(THREE.Math.degToRad(90))
+            car2.add(wheel4)
+
+            //farois do carro
+            const far1 =new THREE.Mesh( new THREE.SphereGeometry( 0.2, 20, 10 ),
+            new THREE.MeshPhongMaterial({ color:0xD6D6D6 }),
+            )
+            far1.position.x = 4.2
+            far1.position.y = 1.28
+            far1.position.z = 5
+            car2.add(far1)
+
+            const far2 =new THREE.Mesh( new THREE.SphereGeometry( 0.2, 20, 10 ),
+            new THREE.MeshPhongMaterial({ color:0xD6D6D6 }),
+            )
+            far2.position.x = 4.2
+            far2.position.y = 1.28
+            far2.position.z = 6.1
+            car2.add(far2)
+
+
+
+            //Rodas do atrelado
+            
+            const wheel5 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshPhongMaterial({ color:0x272727}),
+            )
+            wheel5.position.x = -2.647
+            wheel5.position.y = 0.420
+            wheel5.position.z = 6.547
+            wheel5.rotateX(THREE.Math.degToRad(90))
+            atrelado2.add(wheel5)
+            
+            const wheel6 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshPhongMaterial({ color:0x272727 }),
+            )
+            wheel6.position.x = -2.647
+            wheel6.position.y = 0.420
+            wheel6.position.z = 4.439
+            wheel6.rotateX(THREE.Math.degToRad(90))
+
+            atrelado2.add(wheel6)
+
+
+
+            //Cubos do carro
+
+            const cube1 =new THREE.Mesh( new THREE.BoxGeometry(4.340, 1.400, 1.960),
+            new THREE.MeshPhongMaterial({ color:0x003F9A }),
+            )
+            cube1.position.x = 1.991
+            cube1.position.y = 1.087
+            cube1.position.z = 5.533
+            cube1.name='capot'
+            car2.add(cube1)
+
+            const cube2 =new THREE.Mesh( new THREE.BoxGeometry(2.554, 1.250, 1.960),
+            new THREE.MeshPhongMaterial({ color:0xAEAEAE }),
+            )
+            cube2.position.x = 1.627
+            cube2.position.y = 2.384
+            cube2.position.z = 5.533
+            car2.add(cube2)
+
+            //Cubo do atrelado
+
+            const cube3 =new THREE.Mesh( new THREE.BoxGeometry(3.220, 1.140, 1.960),
+            new THREE.MeshPhongMaterial({ color:0x616870 }),
+            )
+            cube3.position.x = -2.493
+            cube3.position.y = 0.968
+            cube3.position.z = 5.511
+            atrelado2.add(cube3)
+
+            const cube4 =new THREE.Mesh( new THREE.BoxGeometry(0.120, 0.240, 0.800),
+            new THREE.MeshPhongMaterial({ color:0xD6D6D6 }),
+            )
+            cube4.position.x = -4.076
+            cube4.position.y = 0.733
+            cube4.position.z = 5.541
+            atrelado2.add(cube4)
+
+
+            //cilindro do atrelado
+
+            const cld =new THREE.Mesh( new THREE.CylinderGeometry(0.25, 0.25, 0.8),
+            new THREE.MeshPhongMaterial({ color:0x272727 }),
+            )
+            cld.position.x = -0.575
+            cld.position.y = 0.891
+            cld.position.z = 5.561
+            cld.rotateZ(THREE.Math.degToRad(90))
+            atrelado2.add(cld)
+
+            car2.add(atrelado2)
+            
+            car2.position.x=-44
+            car2.position.z=-13.5
+            //car.position.x=25
+            //Criar geometria do carro
+            scene.add(car2)
+            console.log(car2);
+            car2.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            });
+
+            
+            
+        }
+
+        function createCar3(){
+            car3= new THREE.Group()
+            atrelado3= new THREE.Group()
+            
+
+            //RODAS DO CARRO
+            const wheel1 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshPhongMaterial({ color:0x272727 }),
+            )
+            wheel1.position.x = 3.207
+            wheel1.position.y = 0.420
+            wheel1.position.z = 4.569
+            wheel1.rotateX(THREE.Math.degToRad(90))
+            car3.add(wheel1)
+
+            const wheel2 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshPhongMaterial({ color:0x272727 }),
+            )
+            wheel2.position.x = 3.207
+            wheel2.position.y = 0.420
+            wheel2.position.z = 6.547
+            wheel2.rotateX(THREE.Math.degToRad(90))
+            car3.add(wheel2)
+            
+            const wheel3 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshPhongMaterial({ color:0x272727 }),
+            )
+            wheel3.position.x = 0.645
+            wheel3.position.y = 0.420
+            wheel3.position.z = 4.439
+            wheel3.rotateX(THREE.Math.degToRad(90))
+            car3.add(wheel3)
+            
+            const wheel4 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshPhongMaterial({ color:0x272727 }),
+            )
+            wheel4.position.x = 0.645
+            wheel4.position.y = 0.420 
+            wheel4.position.z = 6.547
+            wheel4.rotateX(THREE.Math.degToRad(90))
+            car3.add(wheel4)
+
+            //farois do carro
+            const far1 =new THREE.Mesh( new THREE.SphereGeometry( 0.2, 20, 10 ),
+            new THREE.MeshPhongMaterial({ color:0xD6D6D6 }),
+            )
+            far1.position.x = 4.2
+            far1.position.y = 1.28
+            far1.position.z = 5
+            car3.add(far1)
+
+            const far2 =new THREE.Mesh( new THREE.SphereGeometry( 0.2, 20, 10 ),
+            new THREE.MeshPhongMaterial({ color:0xD6D6D6 }),
+            )
+            far2.position.x = 4.2
+            far2.position.y = 1.28
+            far2.position.z = 6.1
+            car3.add(far2)
+
+
+
+            //Rodas do atrelado
+            
+            const wheel5 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshPhongMaterial({ color:0x272727}),
+            )
+            wheel5.position.x = -2.647
+            wheel5.position.y = 0.420
+            wheel5.position.z = 6.547
+            wheel5.rotateX(THREE.Math.degToRad(90))
+            atrelado3.add(wheel5)
+            
+            const wheel6 =new THREE.Mesh( new THREE.CylinderGeometry(0.420, 0.420, 0.400),
+            new THREE.MeshPhongMaterial({ color:0x272727 }),
+            )
+            wheel6.position.x = -2.647
+            wheel6.position.y = 0.420
+            wheel6.position.z = 4.439
+            wheel6.rotateX(THREE.Math.degToRad(90))
+
+            atrelado3.add(wheel6)
+
+
+
+            //Cubos do carro
+
+            const cube1 =new THREE.Mesh( new THREE.BoxGeometry(4.340, 1.400, 1.960),
+            new THREE.MeshPhongMaterial({ color:0xC62121 }),
+            )
+            cube1.position.x = 1.991
+            cube1.position.y = 1.087
+            cube1.position.z = 5.533
+            cube1.name='capot'
+            car3.add(cube1)
+
+            const cube2 =new THREE.Mesh( new THREE.BoxGeometry(2.554, 1.250, 1.960),
+            new THREE.MeshPhongMaterial({ color:0xAEAEAE }),
+            )
+            cube2.position.x = 1.627
+            cube2.position.y = 2.384
+            cube2.position.z = 5.533
+            car3.add(cube2)
+
+            //Cubo do atrelado
+
+            const cube3 =new THREE.Mesh( new THREE.BoxGeometry(3.220, 1.140, 1.960),
+            new THREE.MeshPhongMaterial({ color:0x616870 }),
+            )
+            cube3.position.x = -2.493
+            cube3.position.y = 0.968
+            cube3.position.z = 5.511
+            cube3.name="atrelado"
+            atrelado3.add(cube3)
+
+            const cube4 =new THREE.Mesh( new THREE.BoxGeometry(0.120, 0.240, 0.800),
+            new THREE.MeshPhongMaterial({ color:0xD6D6D6 }),
+            )
+            cube4.position.x = -4.076
+            cube4.position.y = 0.733
+            cube4.position.z = 5.541
+            atrelado3.add(cube4)
+
+
+            //cilindro do atrelado
+
+            const cld =new THREE.Mesh( new THREE.CylinderGeometry(0.25, 0.25, 0.8),
+            new THREE.MeshPhongMaterial({ color:0x272727 }),
+            )
+            cld.position.x = -0.575
+            cld.position.y = 0.891
+            cld.position.z = 5.561
+            cld.rotateZ(THREE.Math.degToRad(90))
+            atrelado3.add(cld)
+
+            car3.add(atrelado3)
+            
+            //car3.position.x=36
+            //car3.position.z=2
+            //car3.rotateY(THREE.Math.degToRad(180))
+            //car.position.x=25
+            //Criar geometria do carro
+            scene.add(car3)
+            car3.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            });
+
+
             
             
         }
@@ -1293,7 +1610,7 @@
         }
 
         function render() {
-
+            console.log(checkColisions_Car_Chicken());
             //rotate rear chicken
             if (keytest == 1) {
                 if(checkColision_Chicken_Egg()){
@@ -1321,13 +1638,25 @@
             rotation(trueorfalse)
 
             //car move
-            if(car.position.x==25){
+            car.position.x+=0.250
+            if(car.position.x>=25){
                 car.position.x=-20
-                car.position.x+=0.250
             }
-            else{
-                car.position.x+=0.250
+
+            //car2 move
+            car2.position.x+=0.500
+            if(car2.position.x>=38){
+                car2.position.x=-44
+                
             }
+
+            //car3 move
+            car3.position.x-=0.650
+            if(car3.position.x<=-44){
+                car3.position.x=38
+                
+            }
+
             //rotation atrelado
 
             if(atrelado.position.y>=0.250){
@@ -1353,7 +1682,6 @@
 
             
             lightParams.helperShadow.update()
-            //console.log(rearChicken.rotation.y);
             
 
             renderer.render(scene, camera);
@@ -1370,10 +1698,12 @@
                 else if(key== "c"){
                     if(colorCar=='blue' || colorCar==''){
                     car.children[6].material= new THREE.MeshPhongMaterial({ color:0x404040 })
+                    car2.children[6].material=new THREE.MeshPhongMaterial({ color:0x404040 })
                     colorCar='white'
                     }
                     else{
-                        car.children[6].material= new THREE.MeshPhongMaterial({ color:0x001DF5 })
+                        car.children[6].material= new THREE.MeshPhongMaterial({ color:0x003F9A })
+                        car2.children[6].material=new THREE.MeshPhongMaterial({ color:0x003F9A })
                         colorCar='blue'
                     }
                 }
@@ -1402,9 +1732,13 @@
         function setPositionAtrelado(logic){
             if(logic){
                 atrelado.position.y-=0.03
+                atrelado2.position.y-=0.03
+                atrelado3.position.y-=0.03
             }
             else{
                 atrelado.position.y+=0.02
+                atrelado2.position.y+=0.02
+                atrelado3.position.y+=0.02
             }
         }
 
@@ -1421,6 +1755,22 @@
             }
         }
 
+        function checkColisions_Car_Chicken(){
+            let chickenBox = new THREE.Box3().setFromObject(chicken);
+            let carBox = new THREE.Box3().setFromObject(car.children[6])
+            let car2Box = new THREE.Box3().setFromObject(car2.children[6])
+            let car3Box = new THREE.Box3().setFromObject(car3.children[6])
+            let collision = chickenBox.intersectsBox(carBox);
+            let collision2 = chickenBox.intersectsBox(car2Box);
+            let collision3 = chickenBox.intersectsBox(car3Box);
+            if (collision || collision2 || collision3) {
+					return true;
+			}
+            else {
+                return false
+            }
+
+        }
     </script>
 </body>
 
