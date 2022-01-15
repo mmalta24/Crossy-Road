@@ -38,7 +38,7 @@
         let score=document.querySelector("#score")
 
         // 3D Models
-        let chicken, wallG1, Tree3, rearChicken,keytest,trueorfalse,wing1,wing2,egg,car,atrelado,trueorfalseAtrelado;
+        let chicken, wallG1, Tree3, rearChicken,keytest,trueorfalse,wing1,wing2,car,atrelado,trueorfalseAtrelado, littleChicken;
 
         let colorCar=""
 
@@ -61,8 +61,8 @@
             createChicken();
             createTrees();
             createWalls();
-            createEgg();
-            createCar()
+            createCar();
+            createLittleChicken();
 
             // add the lights
             createLights();
@@ -928,20 +928,6 @@
             });
         }
 
-        function createEgg(){
-            egg= new THREE.Group()
-
-            const eggSphere= new THREE.Mesh(
-                new THREE.SphereGeometry(0.260, 0.455, 0.260),
-                new THREE.MeshBasicMaterial({color:0xffffff})
-            )
-            eggSphere.position.x=-0.329
-            eggSphere.position.y=0.667
-            eggSphere.position.z=-11.412
-            egg.add(eggSphere)
-            scene.add(egg)
-        }
-
         function createCar(){
             car= new THREE.Group()
             atrelado= new THREE.Group()
@@ -1092,6 +1078,219 @@
             
         }
 
+        function createLittleChicken(){
+            littleChicken =  new THREE.Object3D();
+
+            //body
+
+            //foots
+
+            const footLittle = new THREE.Mesh(
+            new THREE.BoxGeometry(0.095,0.030,0.095),
+            new THREE.MeshPhongMaterial({ color:0xFC6F3F }),
+            )
+            footLittle.position.x=0.183
+            footLittle.position.y=0.007
+            footLittle.position.z=2.829
+            littleChicken.add(footLittle)
+
+            const footLittle1 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.095,0.030,0.095),
+            new THREE.MeshPhongMaterial({ color:0xFC6F3F }),
+            )
+            footLittle1.position.x=0.000
+            footLittle1.position.y=0.007
+            footLittle1.position.z=2.829
+            littleChicken.add(footLittle1)
+
+            //fingers foot
+
+            const fingerLittle1 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.032,0.030,0.057),
+            new THREE.MeshPhongMaterial({ color:0xFC6F3F }),
+            )
+            fingerLittle1.position.x=0.214
+            fingerLittle1.position.y=0.007
+            fingerLittle1.position.z=2.755
+            littleChicken.add(fingerLittle1)
+
+            const fingerLittle2 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.032,0.030,0.057),
+            new THREE.MeshPhongMaterial({ color:0xFC6F3F }),
+            )
+            fingerLittle2.position.x=0.151
+            fingerLittle2.position.y=0.007
+            fingerLittle2.position.z=2.755
+            littleChicken.add(fingerLittle2)
+
+            const fingerLittle3 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.032,0.030,0.057),
+            new THREE.MeshPhongMaterial({ color:0xFC6F3F }),
+            )
+            fingerLittle3.position.x=0.032
+            fingerLittle3.position.y=0.007
+            fingerLittle3.position.z=2.755
+            littleChicken.add(fingerLittle3)
+
+            const fingerLittle4 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.032,0.030,0.057),
+            new THREE.MeshPhongMaterial({ color:0xFC6F3F }),
+            )
+            fingerLittle4.position.x=-0.031
+            fingerLittle4.position.y=0.007
+            fingerLittle4.position.z=2.755
+            littleChicken.add(fingerLittle4)
+
+            //legs
+
+            const legLittle1 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.037,0.125,0.037),
+            new THREE.MeshPhongMaterial({ color:0xFC6F3F }),
+            )
+            legLittle1.position.x=0.183
+            legLittle1.position.y=0.084
+            legLittle1.position.z=2.832
+            littleChicken.add(legLittle1)
+
+            const legLittle2 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.037,0.125,0.037),
+            new THREE.MeshPhongMaterial({ color:0xFC6F3F }),
+            )
+            legLittle2.position.x=-0.001
+            legLittle2.position.y=0.084
+            legLittle2.position.z=2.832
+            littleChicken.add(legLittle2)
+
+            //body
+
+            const bodyLittle = new THREE.Mesh(
+            new THREE.BoxGeometry(0.265,0.210,0.405),
+            new THREE.MeshPhongMaterial({ color:0xFFFFFF }),
+            )
+            bodyLittle.position.x=0.091
+            bodyLittle.position.y=0.247
+            bodyLittle.position.z=2.853
+            littleChicken.add(bodyLittle)
+
+            //wings
+
+            const wingLittle = new THREE.Mesh(
+            new THREE.BoxGeometry(0.030,0.115,0.215),
+            new THREE.MeshPhongMaterial({ color:0xD6D6D6 }),
+            )
+            wingLittle.position.x=0.242
+            wingLittle.position.y=0.238
+            wingLittle.position.z=2.848
+            littleChicken.add(wingLittle)
+
+            const wingLittle1 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.030,0.115,0.215),
+            new THREE.MeshPhongMaterial({ color:0xD6D6D6 }),
+            )
+            wingLittle1.position.x=-0.055
+            wingLittle1.position.y=0.238
+            wingLittle1.position.z=2.848
+            littleChicken.add(wingLittle1)
+
+            //rear
+            const rearLittle1 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.035,0.035,0.070),
+            new THREE.MeshPhongMaterial({ color:0xEF3146 }),
+            )
+            rearLittle1.position.x=0.092
+            rearLittle1.position.y=0.236
+            rearLittle1.position.z=3.085
+            littleChicken.add(rearLittle1)
+
+            const rearLittle2 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.035,0.035,0.035),
+            new THREE.MeshPhongMaterial({ color:0xEF3146 }),
+            )
+            rearLittle2.position.x=0.092
+            rearLittle2.position.y=0.272
+            rearLittle2.position.z=3.071
+            littleChicken.add(rearLittle2)
+
+            //head
+
+            const headLittle = new THREE.Mesh(
+            new THREE.BoxGeometry(0.265,0.265,0.275),
+            new THREE.MeshPhongMaterial({ color:0xFFFFFF }),
+            )
+            headLittle.position.x=0.093
+            headLittle.position.y=0.484
+            headLittle.position.z=2.788
+            littleChicken.add(headLittle)
+
+            //eyes
+
+            const eyeLittle1 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.035,0.035,0.035),
+            new THREE.MeshPhongMaterial({ color:0x000000 }),
+            )
+            eyeLittle1.position.x=-0.024
+            eyeLittle1.position.y=0.534
+            eyeLittle1.position.z=2.744
+            littleChicken.add(eyeLittle1)
+
+            const eyeLittle2 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.035,0.035,0.035),
+            new THREE.MeshPhongMaterial({ color:0x000000 }),
+            )
+            eyeLittle2.position.x=0.212
+            eyeLittle2.position.y=0.534
+            eyeLittle2.position.z=2.744
+            littleChicken.add(eyeLittle2)
+
+            //upHead
+
+            const upHeadLittle = new THREE.Mesh(
+            new THREE.BoxGeometry(0.040,0.035,0.110),
+            new THREE.MeshPhongMaterial({ color:0xEF3146 }),
+            )
+            upHeadLittle.position.x=0.089
+            upHeadLittle.position.y=0.630
+            upHeadLittle.position.z=2.788
+            littleChicken.add(upHeadLittle)
+
+            //Mouth
+
+            const mouthLittle = new THREE.Mesh(
+            new THREE.BoxGeometry(0.075,0.065,0.110),
+            new THREE.MeshPhongMaterial({ color:0xFC6F3F }),
+            )
+            mouthLittle.position.x=0.094
+            mouthLittle.position.y=0.463
+            mouthLittle.position.z=2.597
+            littleChicken.add(mouthLittle)
+
+            const mouthLittle1 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.065,0.065,0.065),
+            new THREE.MeshPhongMaterial({ color:0xEF3146 }),
+            )
+            mouthLittle1.position.x=0.094
+            mouthLittle1.position.y=0.400
+            mouthLittle1.position.z=2.620
+            littleChicken.add(mouthLittle1)
+
+            littleChicken.rotation.y=THREE.Math.degToRad(160)
+            littleChicken.position.x=-1
+            littleChicken.position.z=-9
+            littleChicken.position.y=0.2
+
+            scene.add(littleChicken)
+
+            littleChicken.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            });
+
+
+
+            
+        }
 
         function render() {
 
@@ -1211,8 +1410,8 @@
 
         function checkColision_Chicken_Egg(){
             let chickenBox = new THREE.Box3().setFromObject(chicken);
-            let eggBox = new THREE.Box3().setFromObject(egg)
-            let collision = chickenBox.intersectsBox(eggBox);
+            let litteChickenBox = new THREE.Box3().setFromObject(littleChicken)
+            let collision = chickenBox.intersectsBox(litteChickenBox);
             if (collision) {
                     score.innerHTML=+score.innerHTML+20
 					return true;
