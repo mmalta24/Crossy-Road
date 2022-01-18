@@ -55,9 +55,6 @@
 
         let btn=document.querySelector("#btn")
 
-        let bbHelper
-        let bbHelper1
-
         btn.addEventListener("click",function(){
             location.reload()
         })
@@ -169,14 +166,6 @@
             // to activate the lights, just add them to the scene
             scene.add(lightParams.object);
 
-            /*HELPERS*/
-            // directional light helper
-            lightParams.helper = new THREE.DirectionalLightHelper(lightParams.object, 5);
-            scene.add(lightParams.helper);
-
-            //HELPER to visualize the SHADOW area of influence
-            lightParams.helperShadow = new THREE.CameraHelper(lightParams.object.shadow.camera);
-            scene.add(lightParams.helperShadow);
         }
 
         function createRoadGarden() {
@@ -452,14 +441,7 @@
             upHead.position.z=11.942
             chicken.add(upHead)
             
-
-            
-            
-
             scene.add(chicken)
-
-            bbHelper1 = new THREE.BoxHelper(chicken, 0x00FFFF);
-            scene.add(bbHelper1);
 
             chicken.traverse(function (child) {
                 if (child instanceof THREE.Mesh) {
@@ -1087,11 +1069,7 @@
             car.add(atrelado)
             
             car.position.x=-20
-            //car.position.x=25
-            //Criar geometria do carro
-
-            bbHelper = new THREE.BoxHelper(car, 0x00FFFF);
-			scene.add(bbHelper);
+        
             scene.add(car)
             car.traverse(function (child) {
                 if (child instanceof THREE.Mesh) {
@@ -1394,8 +1372,8 @@
             car3.position.x=36
             car3.position.z=2
             car3.rotateY(THREE.Math.degToRad(180))
-            //car.position.x=25
-            //Criar geometria do carro
+           
+
             scene.add(car3)
             car3.traverse(function (child) {
                 if (child instanceof THREE.Mesh) {
@@ -1694,12 +1672,6 @@
             camera.position.copy(cameraOffset)
             // // camera looks at the object’s position
             camera.lookAt(chicken.position);
-
-            
-            lightParams.helperShadow.update()
-            
-            bbHelper.update();
-            bbHelper1.update();
 
             renderer.render(scene, camera);
         }
