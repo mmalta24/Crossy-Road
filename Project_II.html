@@ -56,6 +56,7 @@
         let btn=document.querySelector("#btn")
 
         let bbHelper
+        let bbHelper1
 
         btn.addEventListener("click",function(){
             location.reload()
@@ -452,11 +453,13 @@
             chicken.add(upHead)
             
 
-            let axesBody = new THREE.AxesHelper(20);
-            body.add(axesBody);
+            
             
 
             scene.add(chicken)
+
+            bbHelper1 = new THREE.BoxHelper(chicken, 0x00FFFF);
+            scene.add(bbHelper1);
 
             chicken.traverse(function (child) {
                 if (child instanceof THREE.Mesh) {
@@ -1696,6 +1699,7 @@
             lightParams.helperShadow.update()
             
             bbHelper.update();
+            bbHelper1.update();
 
             renderer.render(scene, camera);
         }
@@ -1773,12 +1777,12 @@
         function checkColisions_Car_Chicken(){
             let chickenBox1 = new THREE.Box3().setFromObject(chicken);
             let carBox = new THREE.Box3().setFromObject(car)
-            let car2Box = new THREE.Box3().setFromObject(car2.children[6])
-            let car3Box = new THREE.Box3().setFromObject(car3.children[6])
+            let car2Box = new THREE.Box3().setFromObject(car2)
+            let car3Box = new THREE.Box3().setFromObject(car3)
             let collision1 = chickenBox1.intersectsBox(carBox);
             let collision2 = chickenBox1.intersectsBox(car2Box);
             let collision3 = chickenBox1.intersectsBox(car3Box);
-            if (collision1) {
+            if (collision1||collision2||collision3) {
 				btn.style.visibility='visible'
                 return true;
                     
