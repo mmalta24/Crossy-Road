@@ -51,6 +51,11 @@
         // 3D Models
         let chicken, wallG1, Tree3, rearChicken,keytest,trueorfalse,wing1,wing2,car,car2,car3,atrelado3,atrelado2,atrelado,trueorfalseAtrelado, littleChicken;
 
+        //car speeds
+        let speedCar=0.250
+        let speedCar2=0.500
+        let speedCar3=0.650
+
         let colorCar=""
 
         let btn=document.querySelector("#btn")
@@ -1631,20 +1636,20 @@
             rotation(trueorfalse)
 
             //car move
-            car.position.x+=0.250
+            car.position.x+=speedCar
             if(car.position.x>=25){
                 car.position.x=-20
             }
 
             //car2 move
-            car2.position.x+=0.500
+            car2.position.x+=speedCar2
             if(car2.position.x>=38){
                 car2.position.x=-44
                 
             }
 
             //car3 move
-            car3.position.x-=0.650
+            car3.position.x-=speedCar3
             if(car3.position.x<=-44){
                 car3.position.x=38
                 
@@ -1697,7 +1702,19 @@
                         car3.children[6].material=new THREE.MeshPhongMaterial({ color: 0xC62121})
                         colorCar='blue'
                     }
+                }else if (key=="f") {
+                    speedCar=0.400
+                    speedCar2=0.650
+                    speedCar3=0.670
+
+                }else if (key=="s") {
+                    speedCar=0.250
+                    speedCar2=0.500
+                    speedCar3=0.650
+
                 }
+
+                
 
         })
 
